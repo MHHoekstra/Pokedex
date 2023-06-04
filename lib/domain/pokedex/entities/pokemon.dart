@@ -10,6 +10,7 @@ class Pokemon {
     required this.type,
     required this.stats,
     required this.sprite,
+    required this.flavorText,
   });
 
   final String name;
@@ -19,7 +20,7 @@ class Pokemon {
   final List<ElementalType> type;
   final Stats stats;
   final Uri sprite;
-
+  final String flavorText;
   @override
   String toString() {
     return 'Pokemon{name: $name, id: $id, weight: $weight, height: $height, type: $type, stats: $stats, sprite: $sprite}';

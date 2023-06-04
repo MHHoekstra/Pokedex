@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pokedex/application/pokedex/interactors/get_pokemon_list_interactor.dart';
 import 'package:pokedex/presentation/core/components/bottom_page_waves.dart';
 import 'package:pokedex/presentation/core/components/top_page_waves.dart';
+import 'package:pokedex/presentation/pokedex/pages/pokemon_details_page.dart';
 
 import '../../../domain/pokedex/entities/pokemon.dart';
 import '../components/pokemon_grid_list.dart';
@@ -78,6 +80,17 @@ class _PokemonListPageState extends State<PokemonListPage> {
                 ? PokemonGridList(
                     controller: _controller,
                     list: _list,
+                    onCardTap: (pokemon) {
+                      Navigator.of(context).push(
+                        CupertinoPageRoute(
+                          builder: (context) {
+                            return PokemonDetailsPage(
+                              pokemon: pokemon,
+                            );
+                          },
+                        ),
+                      );
+                    },
                   )
                 : const SizedBox.shrink(),
           ),

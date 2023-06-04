@@ -1,3 +1,5 @@
+import 'dart:isolate';
+
 import 'package:dartz/dartz.dart';
 import 'package:pokedex/domain/core/failure.dart';
 import 'package:pokedex/domain/pokedex/entities/pokemon.dart';
@@ -12,9 +14,11 @@ final class GetPokemonListInteractor {
     int offset = 0,
     int limit = 40,
   }) async {
-    return await _repository.findAll(
-      limit: limit,
-      offset: offset,
+    return Isolate.run(
+      () => _repository.findAll(
+        limit: limit,
+        offset: offset,
+      ),
     );
   }
 }

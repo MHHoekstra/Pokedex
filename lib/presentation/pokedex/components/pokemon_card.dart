@@ -6,7 +6,9 @@ import 'package:pokedex/presentation/core/extensions/int_to_string_extension.dar
 
 class PokemonCard extends StatelessWidget {
   final Pokemon pokemon;
-  const PokemonCard({Key? key, required this.pokemon}) : super(key: key);
+  final VoidCallback? onTap;
+  const PokemonCard({Key? key, required this.pokemon, this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,40 +30,44 @@ class PokemonCard extends StatelessWidget {
                       : pokemon.type.first.toColor(),
                   0.4)!
             ])),
-        child: Column(
-          children: [
-            Expanded(
-              child: Image.network(
-                pokemon.sprite.toString(),
-                fit: BoxFit.contain,
-                height: 140,
-                width: 145,
-                loadingBuilder: (context, child, loadingProgress) =>
-                    loadingProgress == null
-                        ? child
-                        : const SizedBox(
-                            height: 140,
-                            width: 145,
-                            child: Center(
-                              child: CircularProgressIndicator(),
-                            )),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(8.0),
+          onTap: onTap,
+          child: Column(
+            children: [
+              Expanded(
+                child: Image.network(
+                  pokemon.sprite.toString(),
+                  fit: BoxFit.contain,
+                  height: 140,
+                  width: 145,
+                  loadingBuilder: (context, child, loadingProgress) =>
+                      loadingProgress == null
+                          ? child
+                          : const SizedBox(
+                              height: 140,
+                              width: 145,
+                              child: Center(
+                                child: CircularProgressIndicator(),
+                              )),
+                ),
               ),
-            ),
-            Text(
-              pokemon.name.capitalize(),
-              style: const TextStyle(
-                fontFamily: "VT323",
-                fontSize: 16,
+              Text(
+                pokemon.name.capitalize(),
+                style: const TextStyle(
+                  fontFamily: "VT323",
+                  fontSize: 16,
+                ),
               ),
-            ),
-            Text(
-              pokemon.id.toThreeDigitsString(),
-              style: const TextStyle(
-                fontFamily: "VT323",
-                color: Colors.black38,
+              Text(
+                pokemon.id.toThreeDigitsString(),
+                style: const TextStyle(
+                  fontFamily: "VT323",
+                  color: Colors.black38,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

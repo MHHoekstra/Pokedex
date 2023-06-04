@@ -7,49 +7,54 @@ class Waves extends StatelessWidget {
     required this.height,
     required this.width,
     this.color = Colors.lightBlue,
+    this.secondColor = Colors.lightBlue,
   });
   final Color color;
+  final Color secondColor;
   final Animation animation;
   final double height;
   final double width;
   @override
   Widget build(BuildContext context) {
-    return ClipRect(
-      child: SizedBox(
-        height: height,
-        width: width,
-        child: Stack(
-          alignment: Alignment.bottomLeft,
-          fit: StackFit.expand,
-          children: [
-            CustomPaint(
-              painter: _WavePainter(
-                waveHeight: 3,
-                waveLength: 40,
-                color: color.withOpacity(0.4),
-                borderColor: Colors.white38,
-                animationPercentage: animation.value,
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (context, _) => ClipRect(
+        child: SizedBox(
+          height: height,
+          width: width,
+          child: Stack(
+            alignment: Alignment.bottomLeft,
+            fit: StackFit.expand,
+            children: [
+              CustomPaint(
+                painter: _WavePainter(
+                  waveHeight: 3,
+                  waveLength: 40,
+                  color: color.withOpacity(0.4),
+                  borderColor: Colors.white38,
+                  animationPercentage: animation.value,
+                ),
               ),
-            ),
-            CustomPaint(
-              painter: _WavePainter(
-                waveHeight: 5,
-                waveLength: 60,
-                color: color.withOpacity(0.7),
-                borderColor: Colors.white54,
-                animationPercentage: animation.value,
+              CustomPaint(
+                painter: _WavePainter(
+                  waveHeight: 5,
+                  waveLength: 60,
+                  color: secondColor.withOpacity(0.7),
+                  borderColor: Colors.white54,
+                  animationPercentage: animation.value,
+                ),
               ),
-            ),
-            CustomPaint(
-              painter: _WavePainter(
-                waveHeight: 10,
-                waveLength: 80,
-                color: color,
-                borderColor: Colors.white70,
-                animationPercentage: animation.value,
+              CustomPaint(
+                painter: _WavePainter(
+                  waveHeight: 10,
+                  waveLength: 80,
+                  color: color,
+                  borderColor: Colors.white70,
+                  animationPercentage: animation.value,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

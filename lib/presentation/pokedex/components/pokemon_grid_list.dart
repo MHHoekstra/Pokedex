@@ -7,10 +7,12 @@ import 'pokemon_card.dart';
 class PokemonGridList extends StatefulWidget {
   final List<Pokemon> list;
   final ScrollController? controller;
+  final Function(Pokemon) onCardTap;
   const PokemonGridList({
     super.key,
     required this.list,
     this.controller,
+    required this.onCardTap,
   });
 
   @override
@@ -66,6 +68,9 @@ class _PokemonGridListState extends State<PokemonGridList> {
             slide: !_autoShow,
             child: PokemonCard(
               pokemon: widget.list[index],
+              onTap: () {
+                widget.onCardTap(widget.list[index]);
+              },
             ),
           ),
         );

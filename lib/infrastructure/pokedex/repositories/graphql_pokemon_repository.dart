@@ -22,12 +22,17 @@ class GraphQLPokemonRepository implements PokemonRepository {
       id
       weight
       height
+      pokemon_v2_pokemonspecy {
+        pokemon_v2_pokemonspeciesflavortexts(limit: 1) {
+          flavor_text
+        }
+      }
       pokemon_v2_pokemonstats {
         base_stat
         pokemon_v2_stat {
           name
         }
-    }
+      }
       pokemon_v2_pokemontypes {
         pokemon_v2_type {
           name
@@ -40,7 +45,6 @@ class GraphQLPokemonRepository implements PokemonRepository {
       'offset': offset,
       'limit': limit,
     });
-
     final result = await _client.query(options);
     if (result.hasException) {
       return left(ServerFailure());

@@ -13,6 +13,7 @@ class GraphQLPokemon extends Pokemon {
     required super.type,
     required super.stats,
     required super.sprite,
+    required super.flavorText,
   });
 
   factory GraphQLPokemon.fromGraphQLQuery(QueryResult queryResult) {
@@ -22,6 +23,7 @@ class GraphQLPokemon extends Pokemon {
       weight: 10,
       height: 10,
       type: [ElementalType.bug],
+      flavorText: "",
       stats: const Stats(
           attack: 1,
           defense: 1,
@@ -41,6 +43,8 @@ class GraphQLPokemon extends Pokemon {
       id: json['id'],
       weight: json['weight'],
       height: json['height'],
+      flavorText: json['pokemon_v2_pokemonspecy']
+          ['pokemon_v2_pokemonspeciesflavortexts'][0]['flavor_text'],
       type: (json['pokemon_v2_pokemontypes'] as List)
           .map((e) => _elementalTypeFromJson(e['pokemon_v2_type']))
           .toList(),
