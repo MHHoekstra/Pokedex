@@ -20,8 +20,10 @@ class PokemonCard extends StatelessWidget {
         height: 160,
         width: 145,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            gradient: LinearGradient(colors: [
+          borderRadius: BorderRadius.circular(8),
+          gradient: LinearGradient(
+            stops: const [0.3, 0.7],
+            colors: [
               Color.lerp(Colors.white70, pokemon.type.first.toColor(), 0.4)!,
               Color.lerp(
                   Colors.white70,
@@ -29,7 +31,9 @@ class PokemonCard extends StatelessWidget {
                       ? pokemon.type[1].toColor()
                       : pokemon.type.first.toColor(),
                   0.4)!
-            ])),
+            ],
+          ),
+        ),
         child: InkWell(
           borderRadius: BorderRadius.circular(8.0),
           onTap: onTap,
