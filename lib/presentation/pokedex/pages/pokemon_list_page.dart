@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:pokedex/application/pokedex/interactors/get_pokemon_list_interactor.dart';
-import 'package:pokedex/domain/pokedex/entities/pokemon.dart';
 import 'package:pokedex/presentation/core/components/bottom_page_waves.dart';
 import 'package:pokedex/presentation/core/components/top_page_waves.dart';
 import 'package:pokedex/presentation/pokedex/pages/pokemon_details_page.dart';
 
 import '../components/pokemon_grid_list.dart';
+import '../view_models/pokemon_list_view_model.dart';
 
 class PokemonListPage extends StatefulWidget {
   const PokemonListPage({Key? key}) : super(key: key);
@@ -17,46 +17,28 @@ class PokemonListPage extends StatefulWidget {
 }
 
 class _PokemonListPageState extends State<PokemonListPage> {
-  List<Pokemon> _list = [];
   late final ScrollController _controller;
-  bool loading = false;
+  late final PokemonListPageCubit _cubit;
+
   @override
   void initState() {
     super.initState();
+    _cubit = GetIt.I();
     _controller = ScrollController()
-      ..addListener(() {
-        if ((_controller.position.maxScrollExtent - _controller.offset) >=
+      ..addListener(() async {
+        if ((_controller.position.maxScrollExtent - _controller.offset) <=
                 1000 &&
-            !loading) {
-          setState(() {
-            loading = true;
-          });
-          GetPokemonListInteractor interactor = GetIt.instance();
-          interactor(offset: _list.length).then((value) {
-            value.fold(
-              (l) => null,
-              (r) => setState(() {
-                _list.addAll(r);
-                loading = false;
-              }),
-            );
-          });
+            !_cubit.state.isLoading) {
+          _cubit.loadMore();
         }
       });
-    GetPokemonListInteractor interactor = GetIt.instance();
-    interactor().then((value) {
-      value.fold(
-        (l) => null,
-        (r) => setState(() {
-          _list = r;
-        }),
-      );
-    });
+    _cubit.loadMore();
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _cubit.close();
     super.dispose();
   }
 
@@ -74,26 +56,30 @@ class _PokemonListPageState extends State<PokemonListPage> {
             color: Colors.lightBlue,
             opacity: 0.3,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: _list.isNotEmpty
-                ? PokemonGridList(
-                    controller: _controller,
-                    list: _list,
-                    onCardTap: (pokemon) {
-                      Navigator.of(context).push(
-                        CupertinoPageRoute(
-                          builder: (context) {
-                            return PokemonDetailsPage(
-                              pokemon: pokemon,
+          BlocBuilder<PokemonListPageCubit, PokemonListPageState>(
+              bloc: _cubit,
+              builder: (context, state) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: state.list.isNotEmpty
+                      ? PokemonGridList(
+                          controller: _controller,
+                          list: state.list,
+                          onCardTap: (pokemon) {
+                            Navigator.of(context).push(
+                              CupertinoPageRoute(
+                                builder: (context) {
+                                  return PokemonDetailsPage(
+                                    pokemon: pokemon,
+                                  );
+                                },
+                              ),
                             );
                           },
-                        ),
-                      );
-                    },
-                  )
-                : const SizedBox.shrink(),
-          ),
+                        )
+                      : const SizedBox.shrink(),
+                );
+              }),
         ],
       ),
     );

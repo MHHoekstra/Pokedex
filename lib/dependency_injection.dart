@@ -3,6 +3,7 @@ import 'package:pokedex/application/pokedex/interactors/get_pokemon_list_interac
 import 'package:pokedex/domain/pokedex/repositories/pokemon_repository.dart';
 import 'package:pokedex/infrastructure/core/graphql_client.dart';
 import 'package:pokedex/infrastructure/pokedex/repositories/graphql_pokemon_repository.dart';
+import 'package:pokedex/presentation/pokedex/view_models/pokemon_list_view_model.dart';
 
 void configureDependencyInjection() {
   final instance = GetIt.instance;
@@ -19,4 +20,7 @@ void configureDependencyInjection() {
 
   //Interactors
   instance.registerLazySingleton(() => GetPokemonListInteractor(instance()));
+
+  //ViewModels
+  instance.registerFactory(() => PokemonListPageCubit(instance()));
 }

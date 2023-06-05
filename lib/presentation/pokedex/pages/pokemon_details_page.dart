@@ -20,6 +20,7 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation _animation;
+
   @override
   void initState() {
     super.initState();
