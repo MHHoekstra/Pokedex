@@ -44,8 +44,8 @@ class GraphQLPokemon extends Pokemon {
       id: json['id'],
       weight: json['weight'],
       height: json['height'],
-      flavorText: json['pokemon_v2_pokemonspecy']
-          ['pokemon_v2_pokemonspeciesflavortexts'][0]['flavor_text'],
+      flavorText: (json['pokemon_v2_pokemonspecy']
+          ['pokemon_v2_pokemonspeciesflavortexts'][0]['flavor_text'] as String).replaceAll("\n", ""),
       type: (json['pokemon_v2_pokemontypes'] as List)
           .map((e) => _elementalTypeFromJson(e['pokemon_v2_type']))
           .toList(),

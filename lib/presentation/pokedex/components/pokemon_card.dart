@@ -22,7 +22,7 @@ class PokemonCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           gradient: LinearGradient(
-            stops: const [0.3, 0.7],
+            stops: const [0.35, 0.65],
             colors: [
               Color.lerp(Colors.white70, pokemon.type.first.toColor(), 0.4)!,
               Color.lerp(
