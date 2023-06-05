@@ -6,6 +6,8 @@ import 'package:pokedex/presentation/core/extensions/capitalize_string_extension
 import 'package:pokedex/presentation/core/extensions/elemental_type_to_color_extension.dart';
 import 'package:pokedex/presentation/core/extensions/int_to_string_extension.dart';
 
+import '../components/stats_details.dart';
+
 class PokemonDetailsPage extends StatefulWidget {
   final Pokemon pokemon;
   const PokemonDetailsPage({Key? key, required this.pokemon}) : super(key: key);
@@ -103,57 +105,8 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
                           ),
                       ],
                     ),
-                    Row(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                const Text("HP: "),
-                                Text("${widget.pokemon.stats.hp}")
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                const Text("ATTACK: "),
-                                Text("${widget.pokemon.stats.attack}")
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                const Text("DEFENSE: "),
-                                Text("${widget.pokemon.stats.defense}")
-                              ],
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        Column(
-                          children: [
-                            Row(
-                              children: [
-                                const Text("SP.ATK: "),
-                                Text("${widget.pokemon.stats.specialAttack}")
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                const Text("SP.DEF: "),
-                                Text("${widget.pokemon.stats.specialDefense}")
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                const Text("SPEED: "),
-                                Text("${widget.pokemon.stats.speed}")
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
+                    StatsDetails(
+                      stats: widget.pokemon.stats,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

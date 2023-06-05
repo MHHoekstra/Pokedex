@@ -2,7 +2,8 @@ import 'package:graphql/client.dart';
 import 'package:pokedex/domain/pokedex/entities/elemental_type.dart';
 import 'package:pokedex/domain/pokedex/entities/pokemon.dart';
 import 'package:pokedex/domain/pokedex/entities/stats.dart';
-import 'package:pokedex/infrastructure/pokedex/entitites/graphql_stats.dart';
+
+import 'graphql_stats.dart';
 
 class GraphQLPokemon extends Pokemon {
   const GraphQLPokemon({

@@ -1,7 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:pokedex/presentation/core/components/waves.dart';
+
+import 'waves.dart';
 
 class BottomPageWaves extends StatefulWidget {
   final Color color;

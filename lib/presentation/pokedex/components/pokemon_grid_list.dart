@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex/domain/pokedex/entities/pokemon.dart';
 import 'package:pokedex/presentation/core/components/item_slider.dart';
 
-import '../../../domain/pokedex/entities/pokemon.dart';
 import 'pokemon_card.dart';
 
 class PokemonGridList extends StatefulWidget {
