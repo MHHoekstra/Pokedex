@@ -51,7 +51,9 @@ class ItemSliderState extends State<ItemSlider>
     if(!widget.leftToRight){
       await Future.delayed(const Duration(milliseconds: 200));
     }
-    _controller.forward();
+    if(mounted) {
+      _controller.forward();
+    }
   }
 
   void hide() {
