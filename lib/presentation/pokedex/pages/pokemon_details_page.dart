@@ -112,7 +112,7 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(widget.pokemon.flavorText),
+                        Flexible(child: Text(widget.pokemon.flavorText)),
                         Image.asset("images/pokeball.png", width: 100),
                       ],
                     ),
