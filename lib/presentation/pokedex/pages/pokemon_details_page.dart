@@ -51,10 +51,10 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
             animation: _animation,
             height: MediaQuery.of(context).size.height / 2,
             width: MediaQuery.of(context).size.width,
-            color: widget.pokemon.type.first.toColor(),
+            color: Color.lerp(Colors.white, widget.pokemon.type.first.toColor(), 0.4)!,
             secondColor: widget.pokemon.type.length > 1
-                ? widget.pokemon.type[1].toColor()
-                : widget.pokemon.type.first.toColor(),
+                ? Color.lerp(Colors.white, widget.pokemon.type[1].toColor(), 0.4)!
+                : Color.lerp(Colors.white, widget.pokemon.type.first.toColor(), 0.4)!,
           ),
           Positioned(
             top: MediaQuery.of(context).size.height / 8,

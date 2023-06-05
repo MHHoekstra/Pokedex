@@ -37,7 +37,7 @@ class ItemSliderState extends State<ItemSlider>
       ),
     );
     if (widget.autoShow) {
-      _controller.forward();
+      show();
     }
   }
 
@@ -47,7 +47,10 @@ class ItemSliderState extends State<ItemSlider>
     super.dispose();
   }
 
-  void show() {
+  void show() async {
+    if(!widget.leftToRight){
+      await Future.delayed(const Duration(milliseconds: 200));
+    }
     _controller.forward();
   }
 

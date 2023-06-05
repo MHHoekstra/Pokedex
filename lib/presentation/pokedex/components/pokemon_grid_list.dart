@@ -65,7 +65,6 @@ class _PokemonGridListState extends State<PokemonGridList> {
             key: index < _initialSize ? _sliderKeys[index] : null,
             leftToRight: index.isEven,
             autoShow: _autoShow,
-            slide: !_autoShow,
             child: PokemonCard(
               pokemon: widget.list[index],
               onTap: () {
