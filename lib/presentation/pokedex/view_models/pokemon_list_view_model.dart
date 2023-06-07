@@ -38,6 +38,18 @@ class PokemonListPageCubit extends Cubit<PokemonListPageState> {
   PokemonListPageCubit(this._getPokemonListInteractor)
       : super(PokemonListPageState.initial());
   final GetPokemonListInteractor _getPokemonListInteractor;
+  String lastFilter = "";
+  void filterByName(String name) {
+    lastFilter = name;
+    final newFiltered = state.list.toList();
+    newFiltered.retainWhere(
+        (element) => element.name.toLowerCase().contains(name.toLowerCase()));
+    emit(
+      state.copyWith(
+        filteredList: newFiltered,
+      ),
+    );
+  }
 
   void loadMore() async {
     if (state.isLoading) {
@@ -52,6 +64,7 @@ class PokemonListPageCubit extends Cubit<PokemonListPageState> {
         list: newList,
         isLoading: false,
       ));
+      filterByName(lastFilter);
     });
   }
 }

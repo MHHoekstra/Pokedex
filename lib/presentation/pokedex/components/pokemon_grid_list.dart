@@ -6,12 +6,10 @@ import 'pokemon_card.dart';
 
 class PokemonGridList extends StatefulWidget {
   final List<Pokemon> list;
-  final ScrollController? controller;
   final Function(Pokemon) onCardTap;
   const PokemonGridList({
     super.key,
     required this.list,
-    this.controller,
     required this.onCardTap,
   });
 
@@ -47,14 +45,12 @@ class _PokemonGridListState extends State<PokemonGridList> {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      controller: widget.controller,
+    return SliverGrid(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
       ),
-      itemCount: widget.list.length,
-      itemBuilder: (context, index) {
-        return Padding(
+      delegate: SliverChildBuilderDelegate(
+        (context, index) => Padding(
           padding: const EdgeInsets.only(
             top: 8.0,
             bottom: 8.0,
@@ -72,8 +68,9 @@ class _PokemonGridListState extends State<PokemonGridList> {
               },
             ),
           ),
-        );
-      },
+        ),
+        childCount: widget.list.length,
+      ),
     );
   }
 }

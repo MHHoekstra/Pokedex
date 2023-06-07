@@ -62,20 +62,39 @@ class _PokemonListPageState extends State<PokemonListPage> {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: state.list.isNotEmpty
-                      ? PokemonGridList(
+                      ? CustomScrollView(
                           controller: _controller,
-                          list: state.list,
-                          onCardTap: (pokemon) {
-                            Navigator.of(context).push(
-                              CupertinoPageRoute(
-                                builder: (context) {
-                                  return PokemonDetailsPage(
-                                    pokemon: pokemon,
-                                  );
-                                },
-                              ),
-                            );
-                          },
+                          slivers: [
+                            SliverAppBar(
+                              pinned: true,
+                              backgroundColor: Colors.white10,
+                              flexibleSpace: FlexibleSpaceBar(
+                                  title: TextField(
+                                    onSubmitted: (value) {
+                                      _cubit.filterByName(value);
+                                    },
+                                    decoration: const InputDecoration(
+                                      prefixIcon: Icon(Icons.search),
+                                      hintText: "Search",
+                                    ),
+                                  ),
+                                  centerTitle: true),
+                            ),
+                            PokemonGridList(
+                              list: state.filteredList,
+                              onCardTap: (pokemon) {
+                                Navigator.of(context).push(
+                                  CupertinoPageRoute(
+                                    builder: (context) {
+                                      return PokemonDetailsPage(
+                                        pokemon: pokemon,
+                                      );
+                                    },
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
                         )
                       : const SizedBox.shrink(),
                 );
