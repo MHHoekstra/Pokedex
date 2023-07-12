@@ -49,26 +49,26 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
           Container(),
           Waves(
             animation: _animation,
-            height: MediaQuery.of(context).size.height / 2,
-            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.sizeOf(context).height / 2,
+            width: MediaQuery.sizeOf(context).width,
             color: Color.lerp(Colors.white, widget.pokemon.type.first.toColor(), 0.4)!,
             secondColor: widget.pokemon.type.length > 1
                 ? Color.lerp(Colors.white, widget.pokemon.type[1].toColor(), 0.4)!
                 : Color.lerp(Colors.white, widget.pokemon.type.first.toColor(), 0.4)!,
           ),
           Positioned(
-            top: MediaQuery.of(context).size.height / 8,
+            top: MediaQuery.sizeOf(context).height / 8,
             child: Image.network(
               widget.pokemon.sprite.toString(),
               fit: BoxFit.fitWidth,
-              width: MediaQuery.of(context).size.width / 2,
+              width: MediaQuery.sizeOf(context).width / 2,
             ),
           ),
           Positioned(
             bottom: 24,
             child: Container(
-              height: MediaQuery.of(context).size.height / 2 - 72,
-              width: MediaQuery.of(context).size.width - 58,
+              height: MediaQuery.sizeOf(context).height / 2 - 72,
+              width: MediaQuery.sizeOf(context).width - 58,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
